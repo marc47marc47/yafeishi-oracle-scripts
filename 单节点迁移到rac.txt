@@ -1,0 +1,371 @@
+单节点迁移到RAC环境
+
+说明：
+
+192.168.15.200 oracle用户下有一个单库single,single库的状态如下：
+
+SQL> select tablespace_name from dba_tablespaces;
+
+TABLESPACE_NAME
+------------------------------
+SYSTEM
+SYSAUX
+UNDOTBS1
+TEMP
+MYTEST1
+
+
+SQL> select file_name from dba_data_files;
+
+FILE_NAME
+--------------------------------------------------------------------------------
+/oradata/SINGLE/datafile/o1_mf_system_6s5not3l_.dbf
+/oradata/SINGLE/datafile/o1_mf_sysaux_6s5np1d0_.dbf
+/oradata/SINGLE/datafile/o1_mf_undotbs1_6s5o7b1t_.dbf
+/oradata/SINGLE/datafile/o1_mf_mytest1_6s5qtdy4_.dbf
+
+
+SQL> select name from v$controlfile;
+
+NAME
+--------------------------------------------------------------------------------
+/oracle/product/10.2.0/dbs/single1.ctl
+/oracle/product/10.2.0/dbs/single2.ctl
+
+
+
+SQL> select table_name from dba_tables where owner='UMON';
+
+TABLE_NAME
+------------------------------
+MYTABLE1
+
+
+SQL> select group#,member from v$logfile;
+
+    GROUP#
+----------
+MEMBER
+--------------------------------------------------------------------------------
+         1
+/oradata/SINGLE/onlinelog/o1_mf_1_6s5noqqo_.log
+
+         1
+/oradata/SINGLE/onlinelog/o1_mf_1_6s5noqxb_.log
+
+         2
+/oradata/SINGLE/onlinelog/o1_mf_2_6s5nordh_.log
+
+         2
+/oradata/SINGLE/onlinelog/o1_mf_2_6s5norty_.log
+
+
+
+SQL> select count(*) from mytable1;
+
+  COUNT(*)
+----------
+         9
+    
+目标：
+
+将single库迁移到rac下，rac库的oracle环境创建在orarac用户下，共享的文件系统是nfs的/racdata1 和/racdata2
+
+     
+         
+
+1 环境准备
+
+cp oracle:/oracle/single.ora  to orarac:/orarac/single.ora
+
+cat /orarac/single.ora
+
+*.control_files='$ORACLE_HOME/dbs/single1.ctl','$ORACLE_HOME/dbs/single2.ctl'
+*.db_block_size=8192
+*.DB_CREATE_FILE_DEST='/oradata'
+*.db_name='single'
+*.DB_RECOVERY_FILE_DEST='/oradata'
+*.DB_RECOVERY_FILE_DEST_SIZE=2000M
+*.pga_aggregate_target=200M
+*.sga_max_size=1000M
+*.undo_management='AUTO'
+*.undo_tablespace='UNDOTBS1'
+
+
+
+cp datafile to newpath 
+
+[root@design96 datafile]# mkdir /racdata1/SINGLE
+[root@design96 datafile]# mkdir /racdata1/SINGLE/datafile
+[root@design96 datafile]# cp * /racdata1/SINGLE/datafile/.
+[root@design96 datafile]# chown orarac:oinstall /racdata1/SINGLE/datafile/*
+
+
+cp controlfile to newpath
+
+# cp single*.ctl /racdata1/SINGLE/.
+# chown orarac:oinstall /racdata1/SINGLE/single*.ctl
+
+
+
+cp onlinelog to newpath
+
+
+[root@design96 datafile]# mkdir /racdata1/SINGLE/onlinelog
+[root@design96 datafile]# cd ../onlinelog
+[root@design96 onlinelog]# cp * /racdata1/SINGLE/onlinelog/.
+[root@design96 onlinelog]# chown orarac:oinstall /racdata1/SINGLE/onlinelog/*
+
+
+
+
+vi single.ora
+
+增加
+#cluster_database=true
+cluster_database_instances=2
+single2.instance_number=2
+single1.instance_number=1
+single2.thread=2
+single1.thread=1
+single2.undo_tablespace=UNDOTBS2
+single1.undo_tablespace=UNDOTBS1
+
+
+修改
+*.control_files='$ORACLE_HOME/dbs/single1.ctl','$ORACLE_HOME/dbs/single2.ctl'
+为
+*.control_files='/racdata1/SINGLE/single1.ctl','/racdata1/SINGLE/single2.ctl'
+
+
+
+
+
+
+
+启动到mount状态
+
+[orarac@design96 ~]$ sqlplus
+
+SQL*Plus: Release 10.2.0.4.0 - Production on Wed Apr 6 10:41:58 2011
+
+Copyright (c) 1982, 2007, Oracle.  All Rights Reserved.
+
+Enter user-name: /as sysdba
+Connected to an idle instance.
+
+SQL> startup mount pfile='/orarac/single.ora';
+ORACLE instance started.
+
+Total System Global Area 1048576000 bytes
+Fixed Size                  2089272 bytes
+Variable Size             973082312 bytes
+Database Buffers           67108864 bytes
+Redo Buffers                6295552 bytes
+Database mounted.
+SQL> 
+
+
+
+文件改名
+
+
+alter database rename file '/oradata/SINGLE/datafile/o1_mf_system_6s5not3l_.dbf' to '/racdata1/SINGLE/datafile/o1_mf_system_6s5not3l_.dbf';
+alter database rename file '/oradata/SINGLE/datafile/o1_mf_sysaux_6s5np1d0_.dbf' to '/racdata1/SINGLE/datafile/o1_mf_sysaux_6s5np1d0_.dbf';
+alter database rename file '/oradata/SINGLE/datafile/o1_mf_undotbs1_6s5o7b1t_.dbf' to '/racdata1/SINGLE/datafile/o1_mf_undotbs1_6s5o7b1t_.dbf';
+alter database rename file '/oradata/SINGLE/datafile/o1_mf_mytest1_6s5qtdy4_.dbf' to '/racdata1/SINGLE/datafile/o1_mf_mytest1_6s5qtdy4_.dbf';
+
+alter database rename file '/oradata/SINGLE/onlinelog/o1_mf_1_6s5noqqo_.log' to '/racdata1/SINGLE/onlinelog/o1_mf_1_6s5noqqo_.log';
+alter database rename file '/oradata/SINGLE/onlinelog/o1_mf_1_6s5noqxb_.log' to '/racdata1/SINGLE/onlinelog/o1_mf_1_6s5noqxb_.log';
+alter database rename file '/oradata/SINGLE/onlinelog/o1_mf_2_6s5nordh_.log' to '/racdata1/SINGLE/onlinelog/o1_mf_2_6s5nordh_.log';
+alter database rename file '/oradata/SINGLE/onlinelog/o1_mf_2_6s5norty_.log' to '/racdata1/SINGLE/onlinelog/o1_mf_2_6s5norty_.log';
+
+
+
+打开数据库
+
+SQL> alter database open;
+
+Database altered.
+
+SQL> 
+
+--执行数据字典的安装
+spool cluster.log
+@$ORACLE_HOME/rdbms/admin/catclust.sql;
+spool off
+
+
+新增rac用的undo2和onlinelog
+
+
+CREATE SMALLFILE UNDO TABLESPACE "UNDOTBS2" DATAFILE '/racdata1/SINGLE/single_udo2' SIZE 1000M;
+ALTER DATABASE ADD LOGFILE THREAD 2 GROUP 4 ('/racdata1/SINGLE/single_rd41','/racdata1/SINGLE/single_rd42') SIZE 100M,
+                                    GROUP 5 ('/racdata1/SINGLE/single_rd51','/racdata1/SINGLE/single_rd52') SIZE 100M,
+                                    GROUP 6 ('/racdata1/SINGLE/single_rd61','/racdata1/SINGLE/single_rd62') SIZE 100M;
+ALTER DATABASE ENABLE PUBLIC THREAD 2;
+
+
+
+
+--node1 192.168.15.200
+
+在共享存储中创建spfile
+
+SQL> create spfile='/racdata1/SINGLE/spfilesingle' from pfile='/orarac/single.ora';
+
+File created.
+
+
+在两台主机的dbs目录中分别创建init文件和passwd文件
+
+host1
+echo "SPFILE='/racdata1/SINGLE/spfilesingle'" > $ORACLE_HOME/dbs/initsingle1.ora
+orapwd file=orapwsingle1 password=linkage entries=2
+
+
+host2
+echo "SPFILE='/racdata1/SINGLE/spfilesingle'" > $ORACLE_HOME/dbs/initsingle2.ora
+orapwd file=orapwsingle2 password=linkage entries=2
+
+
+
+关闭并重新启动
+SQL> show parameter db_name
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+db_name                              string      single
+SQL> shutdown immediate
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup
+ORACLE instance started.
+
+Total System Global Area 1048576000 bytes
+Fixed Size                  2089272 bytes
+Variable Size             973082312 bytes
+Database Buffers           67108864 bytes
+Redo Buffers                6295552 bytes
+Database mounted.
+Database opened.
+SQL> 
+
+
+设置cluster模式
+
+SQL> alter system set cluster_database = TRUE scope=spfile;
+
+System altered.
+
+SQL> alter system set cluster_database_instances = 2 scope=spfile;
+
+System altered.
+
+SQL> shutdown immediate
+Database closed.
+Database dismounted.
+ORACLE instance shut down.
+SQL> startup
+ORACLE instance started.
+
+Total System Global Area 1048576000 bytes
+Fixed Size                  2089272 bytes
+Variable Size             973082312 bytes
+Database Buffers           67108864 bytes
+Redo Buffers                6295552 bytes
+Database mounted.
+Database opened.
+SQL> 
+
+
+--node2 192.168.15.201
+
+
+[orarac@design128 dbs]$ export ORACLE_SID=single2
+[orarac@design128 dbs]$ sqlplus
+
+SQL*Plus: Release 10.2.0.4.0 - Production on Wed Apr 6 14:26:16 2011
+
+Copyright (c) 1982, 2007, Oracle.  All Rights Reserved.
+
+Enter user-name: /as sysdba
+Connected to an idle instance.
+
+SQL> startup
+ORACLE instance started.
+
+Total System Global Area 1048576000 bytes
+Fixed Size                  2089272 bytes
+Variable Size             973082312 bytes
+Database Buffers           67108864 bytes
+Redo Buffers                6295552 bytes
+Database mounted.
+Database opened.
+SQL> 
+
+
+
+至此，数据库的两个节点分别启动成功
+
+
+
+
+--建立数据库后注册数据库和instance:
+
+srvctl add database -d single -o $ORACLE_HOME
+srvctl add instance -d single -i single1 -n design96
+srvctl add instance -d single -i single2 -n design128
+
+
+--重启数据库后就可以使用srvctl去起停数据库了
+
+$ crs_stat -t
+Name           Type           Target    State     Host        
+------------------------------------------------------------
+ora....128.gsd application    ONLINE    ONLINE    design128   
+ora....128.ons application    ONLINE    ONLINE    design128   
+ora....128.vip application    ONLINE    ONLINE    design128   
+ora....n96.gsd application    ONLINE    ONLINE    design96    
+ora....n96.ons application    ONLINE    ONLINE    design96    
+ora....n96.vip application    ONLINE    ONLINE    design96    
+ora.ractest.db application    OFFLINE   OFFLINE               
+ora....t1.inst application    OFFLINE   OFFLINE               
+ora....t2.inst application    OFFLINE   OFFLINE               
+ora.single.db  application    ONLINE    ONLINE    design96    
+ora....e1.inst application    ONLINE    ONLINE    design96    
+ora....e2.inst application    ONLINE    ONLINE    design128   
+
+
+--listener.ora
+listener_single2 =
+  (DESCRIPTION_LIST =
+    (DESCRIPTION =
+      (ADDRESS_LIST =
+        (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC))
+      )
+      (ADDRESS_LIST =
+        (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.15.203 )(PORT = 1521)(queuesize=200))
+      )
+    )
+  )
+
+logging_listener_single2=off
+
+SID_LIST_listener_single2 =
+  (SID_LIST =
+    (SID_DESC =
+      (SID_NAME = PLSExtProc)
+      (ORACLE_HOME = /orarac/app/oracle/product/10.2.0/db_1)
+      (PROGRAM = extproc)
+    )
+    (SID_DESC =
+      (SID_NAME = single2)
+      (ORACLE_HOME = /orarac/app/oracle/product/10.2.0/db_1)
+     )
+  )
+
+logging_listener_single2 =off
+
+INBOUND_CONNECT_TIMEOUT_listener_single2 = 0

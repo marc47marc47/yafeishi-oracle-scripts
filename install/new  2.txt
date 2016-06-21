@@ -1,0 +1,41 @@
+function check_osconfig
+{
+if [ "$1" -eq "no" ]
+then 
+	CAT_PARAM="/usr/sbin/no -a | grep $2| /usr/bin/awk -F= '{print $2}'"
+	CHANGE_PARAM="/usr/sbin/no -p -o $2=$3"
+elif [ "$1" -eq "vmo" ]	
+then
+	CAT_PARAM="/usr/sbin/lsattr -El sys0 -a $2 -F value"
+	CHANGE_PARAM="/usr/sbin/chdev -l sys0 -a $2=$3"
+fi	
+
+PARAM_VALUE=`${CAT_PARAM}`
+if /usr/bin/test -z "$PARAM_VALUE"
+then
+	/usr/bin/echo $2 is not set,you can use $CHANGE_PARAM to set it.
+	return 1
+elif [ $PARAM_VALUE -ge $3 ]
+then
+  /usr/bin/echo  $2 is ok!!!
+  STATUS=true
+elif [ $PARAM_VALUE -lt $3 ]
+then
+   /usr/bin/echo $2=$PARAM_VALUE is small, you can use $CHANGE_PARAM  to set it.
+   STATUS=false
+fi
+return 0
+}
+
+echo "----------------- check osconfig parameter value " 
+check_osconfig no  tcp_ephemeral_low	32768
+check_osconfig no  tcp_ephemeral_high	65535
+check_osconfig no  udp_ephemeral_low	32768
+check_osconfig no  udp_ephemeral_high	65535
+check_osconfig no  tcp_recvspace   65536
+check_osconfig no  tcp_sendspace   65536
+check_osconfig no  udp_sendspace   65536
+check_osconfig no  udp_recvspace   65536
+check_osconfig no  rfc1323   1
+check_osconfig no  sb_max   4194304 
+check_osconfig no  ipqmaxlen   512

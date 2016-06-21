@@ -1,0 +1,19 @@
+[Project ID]
+Signature=UE Proj: v.1
+[Project Information]
+Use Relative Directory=1
+Relative to Project File=1
+[Files]
+0=rac_相关.sql
+1=rman_相关.sql
+2=showplan.sql
+3=表空间.sql
+4=常用语句.sql
+5=归档处理.sql
+6=拼接语句.sql
+7=生成awr.sql
+8=生成rebuid脚本.sql
+9=生成trunc-unusable.sql
+10=锁相关.sql
+11=统计信息相关.sql
+12=执行计划.sql

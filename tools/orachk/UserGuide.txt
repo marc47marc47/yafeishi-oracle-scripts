@@ -1,0 +1,8 @@
+ORAchk User Guide - Oracle configuration audit tool
+----------------------------------------------------------------------------------
+
+The ORAchk User Guide is now distributed as PDF file via MyOracle Support Note ORAchk - Oracle Configuration Audit Tool (Doc ID 1268927.2)
+
+ORAchkUserGuide.pdf
+
+ORAchk Collection Manager is now bundled with ORAchk.  See Collection Manager for ORAchk, RACcheck and Exachk (Doc ID 1602329.1)

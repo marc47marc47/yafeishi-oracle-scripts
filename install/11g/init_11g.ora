@@ -1,0 +1,56 @@
+##############################################################################
+# Copyright (c) 1991, 2001, 2002 by Oracle Corporation
+##############################################################################
+ 
+###########################################
+# Cache and I/O
+###########################################
+db_block_size=8192
+ 
+###########################################
+# Cursors and Library Cache
+###########################################
+open_cursors=800
+ 
+###########################################
+# Database Identification
+###########################################
+db_domain=""
+db_name=j2eeactt
+ 
+###########################################
+# File Configuration
+###########################################
+control_files=("/cj2data01/j2eeactt/control01.ctl", "/cj2data02/j2eeactt/control02.ctl")
+ 
+###########################################
+# Miscellaneous
+###########################################
+compatible=11.2.0.0.0
+diagnostic_dest=/oracle
+memory_target=30G
+ 
+###########################################
+# NLS
+###########################################
+nls_language="AMERICAN"
+nls_territory="AMERICA"
+ 
+###########################################
+# Processes and Sessions
+###########################################
+processes=4096
+ 
+###########################################
+# Security and Auditing
+###########################################
+audit_file_dest=/oracle/admin/j2eeactt/adump
+audit_trail=db
+remote_login_passwordfile=EXCLUSIVE
+ 
+ 
+###########################################
+# System Managed Undo and Rollback Segments
+###########################################
+undo_tablespace=UNDOTBS1
+db_files=2000

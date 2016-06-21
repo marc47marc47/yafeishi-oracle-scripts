@@ -1,0 +1,4 @@
+select SCHEMANAME,OSUSER,PROGRAM,CLIENT_INFO from v$session order by CLIENT_INFO;
+
+
+

@@ -1,0 +1,453 @@
+
+
+
+                          *** Start of LogFile ***
+
+  Oracle Database Upgrade Diagnostic Utility       03-20-2012 12:11:02
+
+===============
+Hostname
+===============
+
+CELVPINT6003
+
+===============
+Database Name
+===============
+
+ORCL
+
+===============
+Database Uptime
+===============
+
+11:28 20-MAR-12
+
+=================
+Database Wordsize
+=================
+
+This is a 32-bit database
+
+================
+Software Version
+================
+
+Oracle Database 11g Enterprise Edition Release 11.2.0.3.0 - Production
+PL/SQL Release 11.2.0.3.0 - Production
+CORE	11.2.0.3.0	Production
+TNS for 32-bit Windows: Version 11.2.0.3.0 - Production
+NLSRTL Version 11.2.0.3.0 - Production
+
+=============
+Compatibility
+=============
+
+Compatibility is set as 11.2.0.0.0
+
+================
+Archive Log Mode
+================
+
+Database log mode              No Archive Mode
+Automatic archival             Disabled
+Archive destination            USE_DB_RECOVERY_FILE_DEST
+Oldest online log sequence     1
+Current log sequence           2
+
+================
+Auditing Check
+================
+
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+audit_file_dest                      string      C:\APP\ADMINISTRATOR\ADMIN\ORC
+                                                 L\ADUMP
+audit_sys_operations                 boolean     FALSE
+audit_trail                          string      DB
+
+================
+Cluster Check
+================
+
+NAME                                 TYPE        VALUE
+------------------------------------ ----------- ------------------------------
+cluster_database                     boolean     FALSE
+cluster_database_instances           integer     1
+
+DOC>################################################################
+DOC>
+DOC> If CLUSTER_DATABASE is set to TRUE, change it to FALSE before
+DOC> upgrading the database
+DOC>
+DOC>################################################################
+DOC>#
+
+===========================================
+Tablespace and the owner of the aud$ table
+===========================================
+
+OWNER        TABLESPACE_NAME
+------------ ------------------------------
+SYS          SYSTEM
+
+============================================================================
+count of records in the sys.aud$ table where dbid is null- Standard Auditing
+============================================================================
+
+
+         0
+
+
+============================================================================================
+count of records in the system.aud$ when dbid is null, Std Auditing with OLS or DV installed
+============================================================================================
+select count(*) from system.aud$ where dbid is null
+                            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+
+
+=============================================================================
+count of records in the sys.fga_log$ when dbid is null, Fine Grained Auditing
+=============================================================================
+
+         0
+
+
+
+==========================================
+Oracle Label Security is installed or not
+==========================================
+
+Oracle Label Security is NOT installed at database level
+
+================
+Number of AQ Records in Message Queue Tables
+================
+
+SYS - ALERT_QT - 0
+SYS - AQ$_MEM_MC - 0
+SYS - AQ_EVENT_TABLE - 0
+SYS - AQ_PROP_TABLE - 0
+SYS - KUPC$DATAPUMP_QUETAB - 0
+SYS - SCHEDULER$_EVENT_QTAB - 0
+SYS - SCHEDULER$_REMDB_JOBQTAB - 0
+SYS - SCHEDULER_FILEWATCHER_QT - 0
+SYS - SYS$SERVICE_METRICS_TAB - 0
+SYSMAN - MGMT_LOADER_QTABLE - 0
+SYSMAN - MGMT_NOTIFY_INPUT_QTABLE - 0
+SYSMAN - MGMT_NOTIFY_QTABLE - 0
+SYSMAN - MGMT_PAF_MSG_QTABLE_1 - 0
+SYSMAN - MGMT_PAF_MSG_QTABLE_2 - 0
+SYSMAN - MGMT_TASK_QTABLE - 27
+SYSTEM - DEF$_AQCALL - 0
+SYSTEM - DEF$_AQERROR - 0
+WMSYS - WM$EVENT_QUEUE_TABLE - 0
+
+================
+Time Zone version
+================
+
+
+        14
+
+================
+Local Listener
+================
+
+
+
+
+================
+Default and Temporary Tablespaces By User
+================
+
+
+USERNAME                     TEMPORARY_TABLESPACE   DEFAULT_TABLESPACE
+---------------------------- ---------------------- ----------------------
+SYS                          TEMP                   SYSTEM
+SYSTEM                       TEMP                   SYSTEM
+OUTLN                        TEMP                   SYSTEM
+MGMT_VIEW                    TEMP                   SYSTEM
+FLOWS_FILES                  TEMP                   SYSAUX
+MDSYS                        TEMP                   SYSAUX
+ORDSYS                       TEMP                   SYSAUX
+EXFSYS                       TEMP                   SYSAUX
+DBSNMP                       TEMP                   SYSAUX
+WMSYS                        TEMP                   SYSAUX
+APPQOSSYS                    TEMP                   SYSAUX
+APEX_030200                  TEMP                   SYSAUX
+OWBSYS_AUDIT                 TEMP                   SYSAUX
+ORDDATA                      TEMP                   SYSAUX
+CTXSYS                       TEMP                   SYSAUX
+ANONYMOUS                    TEMP                   SYSAUX
+SYSMAN                       TEMP                   SYSAUX
+XDB                          TEMP                   SYSAUX
+ORDPLUGINS                   TEMP                   SYSAUX
+OWBSYS                       TEMP                   SYSAUX
+SI_INFORMTN_SCHEMA           TEMP                   SYSAUX
+OLAPSYS                      TEMP                   SYSAUX
+SCOTT                        TEMP                   USERS
+ORACLE_OCM                   TEMP                   USERS
+XS$NULL                      TEMP                   USERS
+MDDATA                       TEMP                   USERS
+DIP                          TEMP                   USERS
+APEX_PUBLIC_USER             TEMP                   USERS
+SPATIAL_CSW_ADMIN_USR        TEMP                   USERS
+SPATIAL_WFS_ADMIN_USR        TEMP                   USERS
+
+
+================
+Component Status
+================
+
+Comp ID Component                          Status    Version        Org_Version    Prv_Version
+------- ---------------------------------- --------- -------------- -------------- --------------
+AMD     OLAP Catalog                       VALID     11.2.0.3.0
+APEX    Oracle Application Express         VALID     3.2.1.00.12
+APS     OLAP Analytic Workspace            VALID     11.2.0.3.0
+CATALOG Oracle Database Catalog Views      VALID     11.2.0.3.0
+CATJAVA Oracle Database Java Packages      VALID     11.2.0.3.0
+CATPROC Oracle Database Packages and Types VALID     11.2.0.3.0
+CONTEXT Oracle Text                        VALID     11.2.0.3.0
+EM      Oracle Enterprise Manager          VALID     11.2.0.3.0
+EXF     Oracle Expression Filter           VALID     11.2.0.3.0
+JAVAVM  JServer JAVA Virtual Machine       VALID     11.2.0.3.0
+ORDIM   Oracle Multimedia                  VALID     11.2.0.3.0
+OWB     OWB                                VALID     11.2.0.3.0
+OWM     Oracle Workspace Manager           VALID     11.2.0.3.0
+RUL     Oracle Rules Manager               VALID     11.2.0.3.0
+SDO     Spatial                            VALID     11.2.0.3.0
+XDB     Oracle XML Database                VALID     11.2.0.3.0
+XML     Oracle XDK                         VALID     11.2.0.3.0
+XOQ     Oracle OLAP API                    VALID     11.2.0.3.0
+
+
+
+======================================================
+List of Invalid Database Objects Owned by SYS / SYSTEM
+======================================================
+
+
+Number of Invalid Objects
+------------------------------------------------------------------
+There are no Invalid Objects
+
+DOC>################################################################
+DOC>
+DOC> If there are no Invalid objects below will result in zero rows.
+DOC>
+DOC>################################################################
+DOC>#
+
+
+no rows selected
+
+
+================================
+List of Invalid Database Objects
+================================
+
+
+Number of Invalid Objects
+------------------------------------------------------------------
+There are no Invalid Objects
+
+DOC>################################################################
+DOC>
+DOC> If there are no Invalid objects below will result in zero rows.
+DOC>
+DOC>################################################################
+DOC>#
+
+
+no rows selected
+
+
+======================================================
+Count of Invalids by Schema
+======================================================
+
+==============================================================
+Identifying whether a database was created as 32-bit or 64-bit
+==============================================================
+
+DOC>###########################################################################
+DOC>
+DOC> Result referencing the string 'B023' ==> Database was created as 32-bit
+DOC> Result referencing the string 'B047' ==> Database was created as 64-bit
+DOC> When String results in 'B023' and when upgrading database to 10.2.0.3.0
+DOC> (64-bit) , For known issue refer below articles
+DOC>
+DOC> Note 412271.1 ORA-600 [22635] and ORA-600 [KOKEIIX1] Reported While
+DOC>		   Upgrading Or Patching Databases To 10.2.0.3
+DOC> Note 579523.1 ORA-600 [22635], ORA-600 [KOKEIIX1], ORA-7445 [KOPESIZ] and
+DOC>		  OCI-21500 [KOXSIHREAD1] Reported While Upgrading To 11.1.0.6
+DOC>
+DOC>###########################################################################
+DOC>#
+
+
+Metadata Initial DB Creation Info
+-------- -----------------------------------
+B023     Database was created as 32-bit
+
+===================================================
+Number of Duplicate Objects Owned by SYS and SYSTEM
+===================================================
+
+Counting duplicate objects ....
+
+
+  COUNT(1)
+----------
+         4
+
+=========================================
+Duplicate Objects Owned by SYS and SYSTEM
+=========================================
+
+Querying duplicate objects ....
+
+
+OBJECT_NAME                              OBJECT_TYPE                              SUBOBJECT_NAME                  OBJECT_ID
+---------------------------------------- ---------------------------------------- ------------------------------ ----------
+AQ$_SCHEDULES                            TABLE                                                                         5733
+AQ$_SCHEDULES_PRIMARY                    INDEX                                                                         5734
+DBMS_REPCAT_AUTH                         PACKAGE                                                                       8607
+DBMS_REPCAT_AUTH                         PACKAGE BODY                                                                 12274
+
+DOC>
+DOC>################################################################################
+DOC>
+DOC> If any objects found please follow below article.
+DOC> Note 1030426.6 How to Clean Up Duplicate Objects Owned by SYS and SYSTEM schema
+DOC> Read the Exceptions carefully before taking actions.
+DOC>
+DOC>################################################################################
+DOC>#
+
+========================
+Password protected roles
+========================
+
+DOC>
+DOC>################################################################################
+DOC>
+DOC> In version 11.2 password protected roles are no longer enabled by default so if
+DOC> an application relies on such roles being enabled by default and no action is
+DOC> performed to allow the user to enter the password with the set role command, it
+DOC> is recommended to remove the password from those roles (to allow for existing
+DOC> privileges to remain available). For more information see:
+DOC>
+DOC> Note 745407.1 : What Roles Can Be Set as Default for a User?
+DOC>
+DOC>################################################################################
+DOC>#
+
+Querying for password protected roles ....
+
+
+Password protected Role        Assigned by default to user
+------------------------------ ------------------------------
+OWB$CLIENT                     OWBSYS
+
+================
+JVM Verification
+================
+
+
+================================================
+Checking Existence of Java-Based Users and Roles
+================================================
+
+DOC>
+DOC>################################################################################
+DOC>
+DOC> There should not be any Java Based users for database version 9.0.1 and above.
+DOC> If any users found, it is faulty JVM.
+DOC>
+DOC>################################################################################
+DOC>#
+
+
+User Existence
+---------------------------
+No Java Based Users
+
+DOC>
+DOC>###############################################################
+DOC>
+DOC> Healthy JVM Should contain Six Roles.
+DOC> If there are more or less than six role, JVM is inconsistent.
+DOC>
+DOC>###############################################################
+DOC>#
+
+
+Role
+------------------------------
+There are 6 JAVA related roles
+
+Roles
+
+
+ROLE
+------------------------------
+JAVA_DEPLOY
+JAVAUSERPRIV
+JAVAIDPRIV
+JAVASYSPRIV
+JAVADEBUGPRIV
+JAVA_ADMIN
+
+=========================================
+List of Invalid Java Objects owned by SYS
+=========================================
+
+There are no SYS owned invalid JAVA objects
+
+DOC>
+DOC>#################################################################
+DOC>
+DOC> Check the status of the main JVM interface packages DBMS_JAVA
+DOC> and INITJVMAUX and make sure it is VALID.
+DOC>
+DOC> If there are no Invalid objects below will result in zero rows.
+DOC>
+DOC>#################################################################
+DOC>#
+
+
+no rows selected
+
+
+DOC>
+DOC>#################################################################
+DOC>
+DOC> If the JAVAVM component is not installed in the database (for
+DOC> example, after creating the database with custom scripts), the
+DOC> next query will report the following error:
+DOC>
+DOC>   select dbms_java.longname('foo') "JAVAVM TESTING" from dual
+DOC>   *
+DOC>   ERROR at line 1:
+DOC>   ORA-00904: "DBMS_JAVA"."LONGNAME": invalid identifier
+DOC>
+DOC> If the JAVAVM component is installed, the query should succeed
+DOC> with 'foo' as result.
+DOC>
+DOC>#################################################################
+DOC>#
+
+
+JAVAVM TESTING
+---------------
+foo
+
+
+                            *** End of LogFile ***

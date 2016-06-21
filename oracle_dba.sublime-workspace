@@ -1,0 +1,268 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "oracle_dba.sublime-project",
+			"settings":
+			{
+				"buffer_size": 54,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "等待事件.sql",
+			"settings":
+			{
+				"buffer_size": 1443,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 35.0,
+		"selected_items":
+		[
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"sq",
+				"Set Syntax: SQL (Rails)"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"diff",
+				"Set Syntax: Diff"
+			]
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 209.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/E/ailk/脚本/生成rebuid脚本.sql",
+		"/E/ailk/脚本/修改字符集.sql",
+		"/E/ailk/脚本/获取用户权限.sql",
+		"/E/ailk/脚本/自己整理的脚本——Oracle (来自何登成).txt",
+		"/E/ailk/脚本/维护脚本.sql",
+		"/E/ailk/脚本/统计信息相关.sql",
+		"/E/ailk/脚本/等待事件.sql",
+		"/E/ailk/脚本/生成trunc-unusable.sql",
+		"/E/ailk/脚本/生成awr.sql",
+		"/E/ailk/脚本/执行计划.sql",
+		"/E/ailk/脚本/检查碎片脚本.txt",
+		"/E/ailk/脚本/拼接语句.sql",
+		"/E/ailk/脚本/showplan.sql",
+		"/E/ailk/脚本/sql信息查询.sql",
+		"/E/ailk/脚本/安全检查.sql",
+		"/E/ailk/湖南移动/svn/danghb-update/待做事情.sql",
+		"/C/Users/yafeishi/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/C/Users/yafeishi/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap",
+		"/E/ailk/青海移动/局数据建表/table.sql"
+	],
+	"find":
+	{
+		"height": 45.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"create table\n",
+			"select",
+			"copy",
+			"find",
+			"CREATE TABLE",
+			"CREATE TABLE U*",
+			"CREATE TABLE *u",
+			"CREATE TABLE",
+			"UCR_PARAM",
+			"VARCHAR2",
+			"CHAR",
+			"),\n",
+			"tablespace",
+			"F4",
+			"F3",
+			"tablespace",
+			"create ",
+			"create table",
+			"CREATE",
+			"create",
+			"CREATE TABLE"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"UCR_CEN1"
+		],
+		"reverse": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 1,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "oracle_dba.sublime-project",
+					"settings":
+					{
+						"buffer_size": 54,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								54,
+								54
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "等待事件.sql",
+					"settings":
+					{
+						"buffer_size": 1443,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								455,
+								455
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 45.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 84.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"de",
+				"/C/Users/yafeishi/AppData/Roaming/Sublime Text 2/Packages/Default/Default (Windows).sublime-keymap"
+			],
+			[
+				"package",
+				"/C/Users/yafeishi/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 270.0,
+	"status_bar_visible": true
+}

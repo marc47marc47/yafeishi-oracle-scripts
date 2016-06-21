@@ -1,0 +1,70 @@
+先看一下Oracle 自定义的参数：
+SQL> define
+DEFINE _DATE           = "07-JAN-15" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "orcldg" (CHAR)
+DEFINE _USER           = "SYS" (CHAR)
+DEFINE _PRIVILEGE      = "AS SYSDBA" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1102000400" (CHAR)
+DEFINE _EDITOR         = "ed" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options" (CHAR)
+DEFINE _O_RELEASE      = "1102000400" (CHAR)
+SQL> 
+
+可以使用这些定义的参数来设定相关信息，也可以使sql 来拼接显示的信息
+
+SQL> set sqlprompt "_USER@ _CONNECT_IDENTIFIER >"
+SYS@ orcldg >
+
+退出sqlplus 后，刚才的设置就失效了：
+SYS@ orcldg >quit
+Disconnected from Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+[oracle@standby_db ~]$sqlplus sys/dang@orcldg as sysdba
+
+SQL*Plus: Release 11.2.0.4.0 Production on Wed Jan 7 12:03:31 2015
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SQL> 
+
+不过呢，可以修改sqlplus登陆时候读取的文件来保存设置：
+[oracle@standby_db ~]$vi /oracle/app/oracle/product/11.2.0/db/sqlplus/admin/glogin.sql 
+
+--
+-- Copyright (c) 1988, 2011, Oracle and/or its affiliates.
+-- All rights reserved.
+--
+-- NAME
+--   glogin.sql
+--
+-- DESCRIPTION
+--   SQL*Plus global login "site profile" file
+--
+--   Add any SQL*Plus commands here that are to be executed when a
+--   user starts SQL*Plus, or uses the SQL*Plus CONNECT command.
+--
+-- USAGE
+--   This script is automatically run
+--
+set sqlprompt "_USER@ _CONNECT_IDENTIFIER >"
+
+保存后重新登陆sqlplus：
+[oracle@standby_db ~]$sqlplus sys/dang@orcldg as sysdba
+
+SQL*Plus: Release 11.2.0.4.0 Production on Wed Jan 7 12:05:31 2015
+
+Copyright (c) 1982, 2013, Oracle.  All rights reserved.
+
+
+Connected to:
+Oracle Database 11g Enterprise Edition Release 11.2.0.4.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options
+
+SYS@ orcldg >
+

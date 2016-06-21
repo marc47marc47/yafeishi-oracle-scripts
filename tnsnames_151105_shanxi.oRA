@@ -1,0 +1,786 @@
+localorcl =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orcl)
+    )
+  )
+############################### myself ####################################
+orcl =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.151)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orcl)
+    )
+  )
+  
+orcldg =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.153)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = orcl)
+    )
+  )  
+  
+orclrac1 =
+ (description =
+    (address_list = 
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 192.168.56.102)(port = 1521))
+      (address = (protocol = tcp)(host = 192.168.56.104)(port = 1521))
+    )
+    (connect_data =
+      (service_name = orcl)
+      (failover_mode =
+        (type=select)
+        (method=basic)
+       )
+     )
+  ) 
+  
+orclrac2 =
+ (description =
+    (address_list = 
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 192.168.56.104)(port = 1521))
+      (address = (protocol = tcp)(host = 192.168.56.102)(port = 1521))
+    )
+    (connect_data =
+      (service_name = orcl)
+      (failover_mode =
+        (type=select)
+        (method=basic)
+       )
+     )
+  )  
+  
+orclrac =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.56.105)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = orcl)
+    )
+  )  
+
+########################## nj #########################
+design2950 =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 10.21.20.72)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = xjdb)
+    )
+  )  
+  
+nj_qhcrmdb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.21.20.46)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVICE_NAME = qhcrmtst)
+    )
+  )  
+nj_ngactdb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.21.20.47)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVICE_NAME = ngactdb)
+    )
+  )
+
+nj_ngcrmdb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.21.20.47)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVICE_NAME = ngcrmdb)
+    )
+  )  
+
+SXTEST =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.11.112)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = sxtest)
+    )
+  )
+
+SXDEV =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.11.112)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = sxdev)
+    )
+  )
+  
+YH_CRM =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.11.112)(PORT = 15001))
+    )
+    (CONNECT_DATA =
+      (SID = j2eedev)
+    )
+  )  
+##########################  新疆测试 ###########################  
+xj_actrz =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.238.250.1)(PORT = 10007))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngact)
+    )
+  ) 
+  
+xj_crmrz =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.238.250.5)(PORT = 10007))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngcrm)
+    )
+  )  
+  
+xj_bilrz =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.238.250.3)(PORT = 10007))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngbil)
+    )
+  )  
+
+  
+xj_crmtest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.238.249.2)(PORT = 1526))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = crmtest)
+    )
+  )
+  
+###############################
+
+  
+nhnewactdb_i1_taf =
+ (description =
+    (address_list = 
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.238.160.117)(port = 1521))
+      (address = (protocol = tcp)(host = 10.238.160.119)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngact)
+      (failover_mode =
+        (type=select)
+        (method=basic)
+       )
+     )
+  )
+  
+nhnewactdb_i2_taf =
+ (description =
+    (address_list = 
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.238.160.119)(port = 1521))
+      (address = (protocol = tcp)(host = 10.238.160.117)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngact)
+      (failover_mode =
+        (type=select)
+        (method=basic)
+       )
+     )
+  ) 
+
+nhnewbildb_i1_taf =
+ (description =
+    (address_list = 
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.238.160.90)(port = 1521))
+      (address = (protocol = tcp)(host = 10.238.160.92)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngbil)
+      (failover_mode =
+        (type=select)
+        (method=basic)
+       )
+     )
+  )  
+
+
+nhnewbildb_i2_taf =
+ (description =
+    (address_list = 
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.238.160.92)(port = 1521))
+      (address = (protocol = tcp)(host = 10.238.160.90)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngbil)
+      (failover_mode =
+        (type=select)
+        (method=basic)
+       )
+     )
+  ) 
+
+##########################  4a ########################33
+stdadt =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.238.161.16)(port = 1521))
+      (address = (protocol = tcp)(host = 10.238.161.15)(port = 1521))
+    )
+    (connect_data =
+      (service_name = stdadt)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+  
+  
+###########天津测试开发环境##########
+tj_crmdev =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.62)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = crmdev)
+    )
+  )
+tj_bossdev =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.62)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = bossdev)
+    )
+  )
+tj_centest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.63)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = centest)
+    )
+  )
+tj_crmtest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.63)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = crmtest)
+    )
+  )
+tj_acttest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.64)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = acttest)
+    )
+  )
+tj_pftest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.64)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = pftest)
+    )
+  )
+tj_biltest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.65)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = biltest)
+    )
+  )
+tj_cstest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.65)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = cstest)
+    )
+  )
+tj_ectest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.4.65)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ectest)
+    )
+  )
+----------天津flash copy库------------
+tj_flash_crm =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.3.45)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID = ngcrm_i1)
+    )
+  )
+tj_flash_act34 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.23.19)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID = NGACTCLA1)
+    )
+  )
+tj_flash_act12 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.143.23.20)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SID = NGACTCLB1)
+    )
+  )  
+tj_bil_tst1 =
+  (description =
+    (address = (protocol = tcp)(host = 10.143.4.70)(port = 1521))
+    (connect_data = (service_name = biltst1) (instance_name = biltst1) )
+   )
+   
+################# 天津准生产库 #############################
+tj_zhun_pfdb =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.143.3.156)(port = 1521))
+      (address = (protocol = tcp)(host = 10.143.3.157)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngpfdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+
+tj_zhun_cusdb =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.143.3.171)(port = 1521))
+      (address = (protocol = tcp)(host = 10.143.3.172)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcusdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+   
+tj_zhun_crmdb =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.143.3.161)(port = 1521))
+      (address = (protocol = tcp)(host = 10.143.3.162)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcrmdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )   
+  
+tj_zhun_echdb =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.143.3.151)(port = 1521))
+      (address = (protocol = tcp)(host = 10.143.3.152)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngechdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+
+###############  陕西 J2EE开发测试
+sx_cusdev =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.106.77)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = cusdev)
+    )
+  ) 
+
+sx_crmdev =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.106.77)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = crmdev)
+    )
+  ) 
+
+sx_actdev =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.106.77)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = actdev)
+    )
+  )  
+  
+sx_custest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.106.78)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = custest)
+    )
+  ) 
+
+sx_crmtest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.106.78)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = crmtest)
+    )
+  ) 
+
+sx_acttest =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.106.78)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = acttest)
+    )
+  )  
+  
+#####    陕西准生产 
+ngactdb13_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.62)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.64)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.66)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.68)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngactdb1)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  ) 
+ngactdb23_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.72)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.73)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.76)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.78)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngactdb2)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+
+ngcrmdb13_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.11)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.14)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.16)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.18)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcrmdb1)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )   
+  
+ngcrmdb33_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.32)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.34)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.34)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.38)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcrmdb3)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+  
+  
+ngcrmdb23_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.22)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.24)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.24)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.28)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcrmdb2)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+  
+ngcrmdb43_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.42)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.44)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.46)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.48)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcrmdb4)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  ) 
+ngcendb13_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.1)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.2)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.4)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.8)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcendb1)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  ) 
+
+ngcendb23_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.52)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.54)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.56)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.58)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcendb2)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+  
+ngpfdb3_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.81)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.82)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.84)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.88)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngpfdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+  
+ngcusdb3_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.92)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.92)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.96)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.98)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcusdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+crmdb1.dang =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.15)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.11)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.13)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.17)(port = 1521))
+    )
+    (connect_data =
+      (service_name = dang)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  ) 
+
+ngcendb12_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.4)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.2)(port = 1521))
+	  (address = (protocol = tcp)(host = 10.131.133.6)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.8)(port = 1521))
+    )
+    (connect_data =
+      (service_name = ngcendb1)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )
+logdb1_taf =
+  (description =
+    (address_list =
+      (load_balance = off)
+      (failover = on)
+      (address = (protocol = tcp)(host = 10.131.133.101)(port = 1521))
+      (address = (protocol = tcp)(host = 10.131.133.103)(port = 1521))
+	  )
+    (connect_data =
+      (service_name = logdb)
+      (failover_mode =
+        (type = select)
+        (method = basic)
+      )
+    )
+  )  
+### 
+ngstadb =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.133.77)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngactdb2)
+    )
+  )  
+  
+prod_crmdb1 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.38.121)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngcrmdb1)
+    )
+  )    
+  
+ngbildb1 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.133.111)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngbildb1)
+    )
+  )
+
+ngbildb2 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.133.116)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngbildb2)
+    )
+  )
+  
+ngbildb3 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.133.121)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngbildb3)
+    )
+  )
+
+ngbildb4 =
+  (DESCRIPTION =
+    (ADDRESS = (PROTOCOL = TCP)(HOST = 10.131.133.126)(PORT = 1521))
+    (CONNECT_DATA =
+      (SERVER = DEDICATED)
+      (SERVICE_NAME = ngbildb4)
+    )
+  )
+  
