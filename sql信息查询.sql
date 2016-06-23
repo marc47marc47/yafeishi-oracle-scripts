@@ -449,6 +449,7 @@ HAVING COUNT(*) > 50
 select a.ADDRESS,a.HASH_VALUE,a.* 
 from v$sqlarea  a where a.SQL_ID='7jprshpcr5f21';
 
+
 exec sys.dbms_shared_pool.purge('07000110EF43A7A0,4271850940','c');
 
 
