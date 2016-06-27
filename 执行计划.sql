@@ -38,7 +38,8 @@ where (hash_value, child_number) =
 SELECT /*+gather_plan_statistics*/ CUST_EMAIL
 FROM   CUSTOMERS
 WHERE  CUST_STATE_PROVINCE='MA'
-AND    COUNTRY_ID='US';
+AND    COUNTRY_ID='US'
+;
 
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(FORMAT=>'ALLSTATS LAST'));
 select * from table(dbms_xplan.display_cursor('cywqnbyj2s3hu','0','ALLSTATS LAST'));
