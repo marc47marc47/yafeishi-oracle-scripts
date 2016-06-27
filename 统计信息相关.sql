@@ -277,6 +277,7 @@ exec dbms_stats.set_global_prefs('no_invalidate', 'FALSE');
 exec dbms_stats.set_global_prefs(pname=>'degree',pvalue=>'20');
 exec dbms_stats.set_global_prefs('granularity','AUTO');
 select dbms_stats.get_param(pname=>'method_opt') from dual;
+select dbms_stats.get_param(pname=>'estimate_percent') from dual;
 select dbms_stats.get_param(pname=>'no_invalidate') from dual;
 --------------------------------------------------------------------------------
 exec dbms_scheduler.set_attribute('SYS.MONDAY_WINDOW','DURATION','+000 06:00:00');
