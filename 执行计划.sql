@@ -188,3 +188,13 @@ and s.snap_id = SQL.snap_id
 AND sql_id in
 ('bsznt7ts70nwv') order by s.snap_id desc 
 /
+
+--根据 sql profile name 查找outline信息
+SELECT so.signature,extractValue(value(h),'.') AS hint
+ FROM sys.sqlobj$data od, sys.sqlobj$ so,
+ table(xmlsequence(extract(xmltype(od.comp_data),'/outline_data/hint'))) h
+ WHERE so.name = 'coe_8nuxf3w2dp5sb_2848050578'
+ AND so.signature = od.signature
+ AND so.category = od.category
+ AND so.obj_type = od.obj_type
+ AND so.plan_id = od.plan_id

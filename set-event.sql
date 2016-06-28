@@ -1,6 +1,6 @@
 
 --10053  trace sql 
-alter session set tracefile_identifier='153——';
+alter session set tracefile_identifier='10053_normal';
 ALTER SESSION SET EVENTS '10053 TRACE NAME CONTEXT FOREVER, LEVEL 1';
 select /* hard parse comment */ * from emp where ename = 'SCOTT';
 ALTER SESSION SET EVENTS '10053 TRACE NAME CONTEXT OFF';
