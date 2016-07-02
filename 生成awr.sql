@@ -9,6 +9,17 @@ from dba_hist_ash_snapshot a
 where a.INSTANCE_NUMBER in (select instance_number from v$instance)
 order by a.SNAP_ID desc;
 
+
+SELECT d.DB_UNIQUE_NAME,d.DBID,i.INSTANCE_NAME,i.INSTANCE_NUMBER,s.snap_id,
+       TO_CHAR(s.end_interval_time,'YYYY-MM-DD HH24:MI:SS')
+FROM dba_hist_snapshot s,
+     v$database d,
+     v$instance i
+WHERE s.dbid = d.dbid
+AND s.instance_number = i.instance_number
+ORDER BY s.snap_id desc;
+
+
 --10g
 select *
 from dba_hist_snapshot a
