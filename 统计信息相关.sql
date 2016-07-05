@@ -99,10 +99,23 @@ select * from dba_tab_modifications;
 exec dbms_stats.gather_fixed_objects_stats();
 exec dbms_stats.gather_dictionary_stats();
 
+
+
+BEGIN
+  DBMS_STATS.GATHER_TABLE_STATS(ownname          => 'SUBS',
+                                tabname          => 'INT_SYNCINFO_UPLOADFILE_EX',
+                                method_opt       => 'for all columns size auto',
+                                no_invalidate    => FALSE,
+                                degree           => 8,
+																granularity      => 'ALL',
+                                cascade          => TRUE);
+END;
+/
+
 --31.表分析语句
 BEGIN
   DBMS_STATS.GATHER_TABLE_STATS(ownname          => 'SCOTT',
-                                tabname          => 'DEPT',
+                                tabname          => 'INT_SYNCINFO_UPLOADFILE_EX',
                                 estimate_percent => 30,
                                 method_opt       => 'for all columns size repeat',
                                 no_invalidate    => FALSE,

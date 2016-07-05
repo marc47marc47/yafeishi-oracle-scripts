@@ -642,6 +642,11 @@ PURGE recyclebin;
 purge dba_recyclebin;
 
 --查看隐含参数
+col name format a30;
+col value format a30;
+col isdefault format a10;
+col ismod format a10;
+col isadj format a10;
 select x.ksppinm name,
        y.ksppstvl value,
        y.ksppstdf isdefault,
@@ -656,14 +661,18 @@ select x.ksppinm name,
  where x.inst_id = userenv('Instance')
    and y.inst_id = userenv('Instance')
    and x.indx = y.indx
-   and x.ksppinm like '_buffer_bus%'
+   and x.ksppinm like '_use_single_log_writer%'
  order by translate(x.ksppinm, ' _', ' ');
 
 
-select  ksppinm param_name,ksppdesc descp, ksppstvl param_value
+set lines 600
+col param_name format a30;
+col param_value format a30;
+col descp format a50;
+select  ksppinm param_name,ksppstvl param_value,ksppdesc descp
    from sys.x$ksppi, sys.x$ksppcv
    where x$ksppi.indx = x$ksppcv.indx
-    and ksppinm like '%batch%'
+    and ksppinm like '%_max_outstanding_log_writes%'
     order by ksppinm;
 
 
@@ -848,4 +857,32 @@ select dbms_utility.data_block_address_file('25165844') FILE_ID,
      dbms_utility.data_block_address_block('25165844') BLOCK_ID 
 	 from dual;   
 	 
+-- ash:
+select event,count(*) 
+from dba_hist_active_sess_history a
+where 1=1
+and a.INSTANCE_NUMBER=2
+and a.SAMPLE_TIME > to_date('2016-07-04 16:50:00', 'yyyy-mm-dd hh24:mi:ss')
+and a.SAMPLE_TIME < to_date('2016-07-04 17:00:00', 'yyyy-mm-dd hh24:mi:ss')
+group by a.event
+order by 2 desc;
+
+select to_char(a.SAMPLE_TIME,'yyyy-mm-dd hh24:mi'),count(*)
+from dba_hist_active_sess_history a
+where 1=1
+and a.INSTANCE_NUMBER=2
+and a.SAMPLE_TIME > to_date('2016-07-04 16:50:00', 'yyyy-mm-dd hh24:mi:ss')
+and a.SAMPLE_TIME < to_date('2016-07-04 17:00:00', 'yyyy-mm-dd hh24:mi:ss')
+and a.event='enq: TX - allocate ITL entry'
+group by to_char(a.SAMPLE_TIME,'yyyy-mm-dd hh24:mi') 
+order by 2 desc;
+
+select *
+from dba_hist_active_sess_history a
+where 1=1
+and a.INSTANCE_NUMBER=2
+and to_char(a.SAMPLE_TIME,'yyyy-mm-dd hh24:mi:ss') ='2016-07-04 16:57:10'
+--and a.SAMPLE_TIME < to_date('2016-07-04 16:59:00', 'yyyy-mm-dd hh24:mi:ss')
+and a.event='enq: TX - allocate ITL entry'
+
 	 

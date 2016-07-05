@@ -151,8 +151,7 @@ PL/SQL procedure successfully completed.
 ----------------------------- SQL_MONITOR -------------------------------------
 select
 DBMS_SQLTUNE.REPORT_SQL_MONITOR(
-sql_id=>'10754',
-report_level=>'ALL',
+sql_id=>'10754',exp
 type=>'html') as report
 from dual;
 
