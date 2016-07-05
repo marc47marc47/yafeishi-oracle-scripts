@@ -642,6 +642,7 @@ PURGE recyclebin;
 purge dba_recyclebin;
 
 --查看隐含参数
+set lines 600
 col name format a30;
 col value format a30;
 col isdefault format a10;
@@ -661,9 +662,16 @@ select x.ksppinm name,
  where x.inst_id = userenv('Instance')
    and y.inst_id = userenv('Instance')
    and x.indx = y.indx
-   and x.ksppinm like '_use_single_log_writer%'
+   and (x.ksppinm like '_use_single_log_writer%'
+   or x.ksppinm like '_max_outstanding_log_writes%')
  order by translate(x.ksppinm, ' _', ' ');
+ 
+ 
+alter system set  "_use_single_log_writer"=false scope=spfile;
 
+alter system set  "_max_outstanding_log_writes"=3 scope=spfile;
+
+alter system set cpu_count=5 scope=both;
 
 set lines 600
 col param_name format a30;
