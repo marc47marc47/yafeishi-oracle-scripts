@@ -13,9 +13,19 @@ crsctl check cluster
 crsctl check cluster -all
 crsctl stat res -t 
 crsctl stat res -t -init
+crsctl stat res ora.net1.network -f
+
  
 2,VOT磁盘查询
 crsctl query css votedisk
+dd if=/dev/raw/raw2 of=/home/oracle/votedisk.bak
+
+./ocrconfig -export /u01/ocrbak.exp
+./ocrconfig -showbackup
+
+
+ping -s 1500 -c 2 -I 120.0.0.1 rac1
+
  
 3,Verify the integrity of OCR:
 ocrcheck
@@ -37,9 +47,60 @@ crsctl stop cluster -n cqracdb1
 crsctl stop cluster [-f]
 crsctl stop cluster -all
 crsctl stop has
+
+
+perl mcasttest.pl -n rac1,rac2 -i e1000g0,e1000g1
  
 [全部停止包括OHASD]
 crsctl stop crs -all -f
+
+
+
+select        
+     inst_id,
+     name,
+     ip_address
+  from
+     gv$cluster_interconnects;
+     
+  
+     
+     
+./oifcfg getif
+./oifcfg iflist -p -n
+
+$GRID_HOME/bin/oifcfg setif -global nxge4/192.168.2.0:cluster_interconnect
+
+cd $GRID_HOME/log/rac1/ohasd
+tail -f ohasd.log 
+
+cd $GRID_HOME/log/rac1/agent/ohasd/orarootagent_root/
+tail -f orarootagent_root.log
+
+cd $GRID_HOME/log/rac1/cssd/
+tail -f ocssd.log 
+
+ls -l $ORACLE_HOME/cdata/*.olr
+
+grep "OCR MASTER" crsd.log
+
+grep "CSS is not ready" crsd.log
+
+     
+crsctl modify res ora.cluster_interconnect.haip -attr "ENABLED=0" -init 
+
+
+crsctl modify res ora.cluster_interconnect.haip -attr "TARGET=ONLINE" -init    
+
+To find out HAIP status, execute the following on all nodes:
+$GRID_HOME/bin/crsctl stat res ora.cluster_interconnect.haip -init
+If it’s offline, try to bring it up as root:
+$GRID_HOME/bin/crsctl start res ora.cluster_interconnect.haip -init
+
+
+db alert log
+Cluster communication is configured to use the following interface(s) for this instance
+     
  
 7，查看数据库状态
 srvctl status database -d cqdb

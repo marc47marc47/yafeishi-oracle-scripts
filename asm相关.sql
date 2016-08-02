@@ -1,7 +1,7 @@
 set linesize 1000 pagesize 10000 
 select name, group_number , disk_number ,state ,failgroup ,path  
 from v$asm_disk 
-where name like 'HDATA%' ; 
+where name like 'CRS%' ; 
 
 
 select a.NAME,round(a.TOTAL_MB/1024),round(a.FREE_MB/1024)

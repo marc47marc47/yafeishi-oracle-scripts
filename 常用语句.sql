@@ -893,4 +893,14 @@ and to_char(a.SAMPLE_TIME,'yyyy-mm-dd hh24:mi:ss') ='2016-07-04 16:57:10'
 --and a.SAMPLE_TIME < to_date('2016-07-04 16:59:00', 'yyyy-mm-dd hh24:mi:ss')
 and a.event='enq: TX - allocate ITL entry'
 
-	 
+
+select
+    optimizer_feature_enable,
+   description
+from
+   v$system_fix_control
+where
+   substr(optimizer_feature_enable,1,2) = '10'
+order by
+   to_number(optimizer_feature_enable),
+   description;	 
